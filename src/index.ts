@@ -6,6 +6,7 @@ import * as plays from "~/routes/plays";
 import * as search from "~/routes/search";
 import * as thing from "~/routes/thing";
 import * as user from "~/routes/user";
+import * as forumList from "~/routes/forumList";
 
 export const bgg = {
   ...collection,
@@ -16,4 +17,5 @@ export const bgg = {
   ...thing,
   ...user,
   plays: { ...plays },
+  ...forumList,
 };
