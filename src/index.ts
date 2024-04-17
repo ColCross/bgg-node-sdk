@@ -8,16 +8,18 @@ import * as thing from "~/routes/thing";
 import * as user from "~/routes/user";
 import * as forumList from "~/routes/forumList";
 import * as forum from "~/routes/forum";
+import * as thread from "~/routes/thread";
 
 export const bgg = {
   ...collection,
   ...family,
+  ...forum,
+  ...forumList,
   ...guild,
   ...hot,
   ...search,
   ...thing,
+  ...thread,
   ...user,
   plays: { ...plays },
-  ...forumList,
-  ...forum,
 };

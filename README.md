@@ -6,17 +6,12 @@ A modern SDK for interacting with the BoardGameGeek (BGG) XMLAPI2, written in Ty
 
 ## Core Features
 
+- Support for all BGG XMLAPI2 endpoints (see [documentation](https://boardgamegeek.com/wiki/page/BGG_XML_API2))
 - Type safety for requests and responses
 - Automatic conversion of responses from XML to JSON
 - Automatic retry for queued requests
 - Support for both CommonJS and ES modules
 - Usable in both server and browser environments
-
-## Planned Features
-
-- Support for all BGG XMLAPI2 endpoints (see [documentation](https://boardgamegeek.com/wiki/page/BGG_XML_API2))
-  - Remaining endpoints to implement
-    - thread
 
 ## TODO
 
