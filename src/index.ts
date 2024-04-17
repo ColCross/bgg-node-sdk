@@ -7,6 +7,7 @@ import * as search from "~/routes/search";
 import * as thing from "~/routes/thing";
 import * as user from "~/routes/user";
 import * as forumList from "~/routes/forumList";
+import * as forum from "~/routes/forum";
 
 export const bgg = {
   ...collection,
@@ -18,4 +19,5 @@ export const bgg = {
   ...user,
   plays: { ...plays },
   ...forumList,
+  ...forum,
 };
