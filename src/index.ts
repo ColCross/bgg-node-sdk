@@ -23,3 +23,5 @@ export const bgg = {
   ...user,
   plays: { ...plays },
 };
+
+export default bgg;
