@@ -2,27 +2,26 @@ import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
 import {
+  ParamsPlaysUsername,
+  PayloadPlaysUsername,
+} from "~/routes/types/public";
+import {
   ApiResponseAttributesBase,
-  ParamsBase,
   ApiResponseBase,
 } from "~/routes/plays/types";
-
-type Params = ParamsBase & {
-  username: string;
-};
 
 type ApiResponseAttributes = ApiResponseAttributesBase & {
   username: string;
   userid: string;
 };
 
-type ApiResponseSubtype = {
+type ApiResponseItemSubtype = {
   _attributes: {
     value: string;
   };
 };
 
-type ApiResponsePlay = {
+type ApiResponse = {
   _attributes: {
     id: string;
     date: string;
@@ -39,39 +38,19 @@ type ApiResponsePlay = {
       objectid: string;
     };
     subtypes: {
-      subtype: ApiResponseSubtype | ApiResponseSubtype[];
+      subtype: ApiResponseItemSubtype | Array<ApiResponseItemSubtype>;
     };
   };
 };
 
-type ApiResponse = ApiResponseBase<ApiResponseAttributes, ApiResponsePlay>;
+type ApiResponsePlaysUsername = ApiResponseBase<
+  ApiResponseAttributes,
+  ApiResponse
+>;
 
-type Payload = {
-  attributes: {
-    termsofuse: string;
-    username: string;
-    userid: string;
-    total: string;
-    page: string;
-  };
-  plays: Array<{
-    id: string;
-    date: string;
-    quantity: string;
-    length: string;
-    incomplete: string;
-    nowinstats: string;
-    location: string;
-    item: {
-      name: string;
-      objecttype: string;
-      objectid: string;
-      subtypes: string[];
-    };
-  }>;
-};
-
-const transformData = (data: ApiResponse): Payload => {
+const transformData = (
+  data: ApiResponsePlaysUsername,
+): PayloadPlaysUsername => {
   return {
     attributes: {
       termsofuse: data.plays._attributes.termsofuse,
@@ -100,7 +79,11 @@ const transformData = (data: ApiResponse): Payload => {
   };
 };
 
-export const username = async (params: Params): Promise<Payload> => {
-  const { data } = await axios.get<ApiResponse>("/plays", { params });
+export const username = async (
+  params: ParamsPlaysUsername,
+): Promise<PayloadPlaysUsername> => {
+  const { data } = await axios.get<ApiResponsePlaysUsername>("/plays", {
+    params,
+  });
   return transformData(data);
 };

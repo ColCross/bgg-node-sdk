@@ -1,17 +1,11 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
-import { thing, family } from "~/routes/types";
 
+import { ParamsPlaysId, PayloadPlaysId } from "~/routes/types/public";
 import {
   ApiResponseAttributesBase,
-  ParamsBase,
   ApiResponseBase,
 } from "~/routes/plays/types";
-
-type Params = ParamsBase & {
-  id: string;
-  type: thing | family;
-};
 
 type ApiResponsePlayers = {
   _attributes: {
@@ -27,7 +21,7 @@ type ApiResponsePlayers = {
   };
 };
 
-type ApiResponsePlay = {
+type ApiResponse = {
   _attributes: {
     id: string;
     date: string;
@@ -52,47 +46,16 @@ type ApiResponsePlay = {
     };
   };
   players?: {
-    player: ApiResponsePlayers | ApiResponsePlayers[];
+    player: ApiResponsePlayers | Array<ApiResponsePlayers>;
   };
 };
 
-type ApiResponse = ApiResponseBase<ApiResponseAttributesBase, ApiResponsePlay>;
+type ApiResponsePlaysId = ApiResponseBase<
+  ApiResponseAttributesBase,
+  ApiResponse
+>;
 
-type Payload = {
-  attributes: {
-    termsofuse: string;
-    total: string;
-    page: string;
-  };
-  plays: Array<{
-    id: string;
-    date: string;
-    quantity: string;
-    length: string;
-    incomplete: string;
-    nowInStats: string;
-    location: string;
-    item: {
-      name: string;
-      objectType: string;
-      objectId: string;
-      subtypes: string[];
-    };
-    players?: {
-      username: string;
-      userid: string;
-      name: string;
-      startPosition: string;
-      color: string;
-      score: string;
-      new: string;
-      rating: string;
-      win: string;
-    }[];
-  }>;
-};
-
-const transformData = (data: ApiResponse): Payload => {
+const transformData = (data: ApiResponsePlaysId): PayloadPlaysId => {
   const { play, _attributes } = data.plays;
 
   return {
@@ -134,7 +97,7 @@ const transformData = (data: ApiResponse): Payload => {
   };
 };
 
-export const id = async (params: Params): Promise<Payload> => {
-  const { data } = await axios.get<ApiResponse>("/plays", { params });
+export const id = async (params: ParamsPlaysId): Promise<PayloadPlaysId> => {
+  const { data } = await axios.get<ApiResponsePlaysId>("/plays", { params });
   return transformData(data);
 };

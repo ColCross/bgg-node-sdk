@@ -1,11 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
-import { thing, family } from "~/routes/types";
 
-type Params = {
-  id: string;
-  type: thing | family;
-};
+import { ParamsForumList, PayloadForumList } from "~/routes/types/public";
+import { thing, family } from "~/routes/types/shared";
 
 type ApiResponse = {
   forums: {
@@ -29,25 +26,7 @@ type ApiResponse = {
   };
 };
 
-type Payload = {
-  attributes: {
-    type: thing | family;
-    termsOfUse: string;
-    id: string;
-  };
-  forums: Array<{
-    id: string;
-    groupId: string;
-    title: string;
-    noPosting: string;
-    description: string;
-    numThreads: string;
-    numPosts: string;
-    lastPostDate: string;
-  }>;
-};
-
-export const transformData = (data: ApiResponse): Payload => {
+export const transformData = (data: ApiResponse): PayloadForumList => {
   return {
     attributes: {
       type: data.forums._attributes.type,
@@ -67,7 +46,9 @@ export const transformData = (data: ApiResponse): Payload => {
   };
 };
 
-export const forumList = async (params: Params): Promise<Payload> => {
+export const forumList = async (
+  params: ParamsForumList,
+): Promise<PayloadForumList> => {
   const { data } = await axios.get<ApiResponse>("/forumlist", {
     params,
   });

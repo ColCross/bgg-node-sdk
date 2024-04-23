@@ -1,12 +1,7 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-type Params = {
-  id: string;
-  minArticleId: string;
-  minArticleDate: string;
-  count: string;
-};
+import { ParamsThread, PayloadThread } from "~/routes/types/public";
 
 type ApiResponse = {
   thread: {
@@ -34,26 +29,7 @@ type ApiResponse = {
   };
 };
 
-type Payload = {
-  attributes: {
-    id: string;
-    numArticles: string;
-    link: string;
-    termsOfUse: string;
-  };
-  subject: string;
-  articles: Array<{
-    id: string;
-    username: string;
-    link: string;
-    postDate: string;
-    editDate: string;
-    numEdits: string;
-    body: string;
-  }>;
-};
-
-const transformData = (data: ApiResponse): Payload => {
+const transformData = (data: ApiResponse): PayloadThread => {
   return {
     attributes: {
       id: data.thread._attributes.id,
@@ -74,7 +50,9 @@ const transformData = (data: ApiResponse): Payload => {
   };
 };
 
-export const thread = async (params: Params): Promise<Payload | null> => {
+export const thread = async (
+  params: ParamsThread,
+): Promise<PayloadThread | null> => {
   const { data } = await axios.get<ApiResponse>("/thread", {
     params,
   });

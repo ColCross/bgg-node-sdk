@@ -25,3 +25,5 @@ export const bgg = {
 };
 
 export default bgg;
+
+export * from "~/routes/types/public";

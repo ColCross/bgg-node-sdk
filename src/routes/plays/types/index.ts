@@ -8,7 +8,7 @@ import {
   rpg,
   rpgitem,
   videogame,
-} from "~/routes/types";
+} from "~/routes/types/shared";
 
 export type ParamsBase = {
   minDate?: string;
@@ -36,6 +36,6 @@ export type ApiResponseAttributesBase = {
 export type ApiResponseBase<T, Q> = {
   plays: {
     _attributes: T;
-    play: Q | Q[];
+    play: Q | Array<Q>;
   };
 };

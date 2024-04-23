@@ -1,10 +1,6 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
-
-type Params = {
-  id: string;
-  page?: string;
-};
+import { ParamsForum, PayloadForum } from "~/routes/types/public";
 
 type ApiResponse = {
   forum: {
@@ -32,27 +28,7 @@ type ApiResponse = {
   };
 };
 
-type Payload = {
-  attributes: {
-    id: string;
-    title: string;
-    numThreads: string;
-    numPosts: string;
-    lastPostDate: string;
-    noPosting: string;
-    termsOfUse: string;
-  };
-  threads: Array<{
-    id: string;
-    subject: string;
-    author: string;
-    numArticles: string;
-    postDate: string;
-    lastPostDate: string;
-  }>;
-};
-
-const transformData = (data: ApiResponse): Payload => {
+const transformData = (data: ApiResponse): PayloadForum => {
   return {
     attributes: {
       id: data.forum._attributes.id,
@@ -74,7 +50,9 @@ const transformData = (data: ApiResponse): Payload => {
   };
 };
 
-export const forum = async (params: Params): Promise<Payload | null> => {
+export const forum = async (
+  params: ParamsForum,
+): Promise<PayloadForum | null> => {
   // If the id provided is not a valid forum, BGG returns 200 with an error page.
   // Catch parse error and return null.
 

@@ -1,40 +1,14 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
-import {
-  boardgame,
-  boardgameaccessory,
-  boardgameexpansion,
-  rpgissue,
-  rpgitem,
-  videogame,
-} from "~/routes/types";
 
-type Args = {
-  id: string[];
-  type?: Array<
-    | boardgame
-    | boardgameaccessory
-    | boardgameexpansion
-    | rpgissue
-    | rpgitem
-    | videogame
-  >;
-  versions?: true;
-  videos?: true;
-  stats?: true;
-  marketplace?: true;
-  comments?: true;
-  ratingcomments?: true;
-  page?: number;
-  pagesize?: number;
-};
+import { ParamsThing, PayloadThing } from "~/routes/types/public";
 
-type Params = Omit<Args, "id" | "type"> & {
+type ParamsTransformed = Omit<ParamsThing, "id" | "type"> & {
   id: string;
   type?: string;
 };
 
-const getParams = (args: Args): Params => {
+const getParams = (args: ParamsThing): ParamsTransformed => {
   return {
     ...args,
     id: args.id.join(","),
@@ -68,12 +42,12 @@ type ApiResponsePollSuggestedPlayerAge = {
     totalvotes: string;
   };
   results: {
-    result: {
+    result: Array<{
       _attributes: {
         value: string;
         numvotes: string;
       };
-    }[];
+    }>;
   };
 };
 
@@ -83,17 +57,17 @@ type ApiResponsePollNumPlayers = {
     title: string;
     totalvotes: string;
   };
-  results: {
+  results: Array<{
     _attributes: {
       numplayers: string;
     };
-    result: {
+    result: Array<{
       _attributes: {
         value: string;
         numvotes: string;
       };
-    }[];
-  }[];
+    }>;
+  }>;
 };
 
 type ApiResponsePolls = Array<
@@ -129,7 +103,7 @@ type ApiResponseBody = {
   image: {
     _text: string;
   };
-  name: ApiResponseName | ApiResponseName[];
+  name: ApiResponseName | Array<ApiResponseName>;
   description: {
     _text: string;
   };
@@ -168,7 +142,7 @@ type ApiResponseBody = {
       value: string;
     };
   };
-  link: ApiResponseLink | ApiResponseLink[];
+  link: ApiResponseLink | Array<ApiResponseLink>;
   poll?: ApiResponsePolls;
 };
 
@@ -177,80 +151,47 @@ type ApiResponse = {
     _attributes: {
       termsofuse: string;
     };
-    item?: ApiResponseBody | ApiResponseBody[];
+    item?: ApiResponseBody | Array<ApiResponseBody>;
   };
 };
 
 type PollLanguageDependence = {
-  name: string;
+  name: "language_dependence";
   title: string;
   totalvotes: string;
-  results: {
+  results: Array<{
     level: string;
     value: string;
     numvotes: string;
-  }[];
+  }>;
 };
 
 type PollSuggestedPlayerAge = {
   name: string;
   title: string;
   totalvotes: string;
-  results: {
+  results: Array<{
     value: string;
     numvotes: string;
-  }[];
+  }>;
 };
 
 type PollNumPlayers = {
   name: string;
   title: string;
   totalvotes: string;
-  results: {
+  results: Array<{
     numplayers: string;
-    result: {
+    result: Array<{
       value: string;
       numvotes: string;
-    }[];
-  }[];
+    }>;
+  }>;
 };
 
-type Polls = Array<
+export type Polls = Array<
   PollLanguageDependence | PollNumPlayers | PollSuggestedPlayerAge
 >;
-
-type Item = {
-  id: string;
-  type: string;
-  thumbnail: string;
-  image: string;
-  names: {
-    type: string;
-    sortindex: string;
-    value: string;
-  }[];
-  description: string;
-  yearPublished: string;
-  minPlayers: string;
-  maxPlayers: string;
-  playingTime: string;
-  minPlayTime: string;
-  maxPlayTime: string;
-  minAge: string;
-  links: {
-    type: string;
-    id: string;
-    value: string;
-  }[];
-  polls: Polls;
-};
-
-type Payload = {
-  attributes: {
-    termsofuse: string;
-  };
-  items: Item[];
-};
 
 const transformPollLanguageDependence = (
   poll: ApiResponsePollLanguageDependence,
@@ -306,7 +247,8 @@ const transformPollSuggestedNumPlayers = (
   };
 };
 
-// TODO: Figure out why TS doesn't recognize the discriminated union and requires a type assertion
+// Typescript doesn't recognize discriminated unions for nested properties, so this is a workaround
+// Avoids needing overly complex type guards
 const transformPoll = (apiPolls: ApiResponsePolls): Polls => {
   const polls: Polls = [];
 
@@ -345,46 +287,49 @@ const transformPoll = (apiPolls: ApiResponsePolls): Polls => {
   return polls;
 };
 
-const transformData = (data: ApiResponseBody): Item => {
-  return {
-    id: data._attributes.id,
-    type: data._attributes.type,
-    thumbnail: data.thumbnail?._text,
-    image: data.image?._text,
-    names: enforceArray(data.name).map((name) => {
-      return {
-        type: name._attributes.type ?? "",
-        sortindex: name._attributes.sortindex,
-        value: name._attributes.value,
-      };
-    }),
-    description: data.description?._text,
-    yearPublished: data.yearpublished?._attributes.value,
-    minPlayers: data.minplayers?._attributes.value,
-    maxPlayers: data.maxplayers?._attributes.value,
-    playingTime: data.playingtime?._attributes.value,
-    minPlayTime: data.minplaytime?._attributes.value,
-    maxPlayTime: data.maxplaytime?._attributes.value,
-    minAge: data.minage?._attributes.value,
-    links: enforceArray(data.link).map((link) => {
-      return {
-        type: link._attributes.type,
-        id: link._attributes.id,
-        value: link._attributes.value,
-      };
-    }),
-    polls: transformPoll(enforceArray(data.poll)),
-  };
-};
-
-export const thing = async (args: Args): Promise<Payload> => {
-  const params = getParams(args);
-  const { data } = await axios.get<ApiResponse>("/thing", { params });
-
+const transformData = (data: ApiResponse): PayloadThing => {
   return {
     attributes: {
       termsofuse: data.items._attributes.termsofuse,
     },
-    items: enforceArray(data.items.item).map((data) => transformData(data)),
+    items: enforceArray(data.items.item).map((data) => {
+      return {
+        id: data._attributes.id,
+        type: data._attributes.type,
+        thumbnail: data.thumbnail?._text,
+        image: data.image?._text,
+        names: enforceArray(data.name).map((name) => {
+          return {
+            type: name._attributes.type ?? "",
+            sortindex: name._attributes.sortindex,
+            value: name._attributes.value,
+          };
+        }),
+        description: data.description?._text,
+        yearPublished: data.yearpublished?._attributes.value,
+        minPlayers: data.minplayers?._attributes.value,
+        maxPlayers: data.maxplayers?._attributes.value,
+        playingTime: data.playingtime?._attributes.value,
+        minPlayTime: data.minplaytime?._attributes.value,
+        maxPlayTime: data.maxplaytime?._attributes.value,
+        minAge: data.minage?._attributes.value,
+        links: enforceArray(data.link).map((link) => {
+          return {
+            type: link._attributes.type,
+            id: link._attributes.id,
+            value: link._attributes.value,
+          };
+        }),
+        polls: transformPoll(enforceArray(data.poll)),
+      };
+    }),
   };
+};
+
+export const thing = async (params: ParamsThing): Promise<PayloadThing> => {
+  const { data } = await axios.get<ApiResponse>("/thing", {
+    params: getParams(params),
+  });
+
+  return transformData(data);
 };
