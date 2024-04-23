@@ -26,7 +26,7 @@ type ApiResponse = {
   };
 };
 
-export const transformData = (data: ApiResponse): PayloadForumList => {
+const transformData = (data: ApiResponse): PayloadForumList => {
   return {
     attributes: {
       type: data.forums._attributes.type,
