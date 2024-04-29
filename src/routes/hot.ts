@@ -1,7 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsHot, PayloadHot } from "~/routes/types/public";
+import { ParamsHot } from "~/routes/types/params";
+import { PayloadHot } from "~/routes/types/payloads";
 
 type ParamsTransformed = Omit<ParamsHot, "type"> & {
   type: string;

@@ -1,7 +1,14 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsThing, PayloadThing } from "~/routes/types/public";
+import { ParamsThing } from "~/routes/types/params";
+import {
+  PayloadThing,
+  PayloadThingPolls,
+  PayloadThingPollLanguageDependence,
+  PayloadThingPollSuggestedPlayerAge,
+  PayloadThingPollNumPlayers,
+} from "~/routes/types/payloads";
 
 type ParamsTransformed = Omit<ParamsThing, "id" | "type"> & {
   id: string;
@@ -155,47 +162,9 @@ type ApiResponse = {
   };
 };
 
-type PollLanguageDependence = {
-  name: "language_dependence";
-  title: string;
-  totalvotes: string;
-  results: Array<{
-    level: string;
-    value: string;
-    numvotes: string;
-  }>;
-};
-
-type PollSuggestedPlayerAge = {
-  name: string;
-  title: string;
-  totalvotes: string;
-  results: Array<{
-    value: string;
-    numvotes: string;
-  }>;
-};
-
-type PollNumPlayers = {
-  name: string;
-  title: string;
-  totalvotes: string;
-  results: Array<{
-    numplayers: string;
-    result: Array<{
-      value: string;
-      numvotes: string;
-    }>;
-  }>;
-};
-
-export type Polls = Array<
-  PollLanguageDependence | PollNumPlayers | PollSuggestedPlayerAge
->;
-
 const transformPollLanguageDependence = (
   poll: ApiResponsePollLanguageDependence,
-): PollLanguageDependence => {
+): PayloadThingPollLanguageDependence => {
   return {
     name: poll._attributes.name,
     title: poll._attributes.title,
@@ -212,7 +181,7 @@ const transformPollLanguageDependence = (
 
 const transformPollSuggestedPlayerAge = (
   poll: ApiResponsePollSuggestedPlayerAge,
-): PollSuggestedPlayerAge => {
+): PayloadThingPollSuggestedPlayerAge => {
   return {
     name: poll._attributes.name,
     title: poll._attributes.title,
@@ -228,7 +197,7 @@ const transformPollSuggestedPlayerAge = (
 
 const transformPollSuggestedNumPlayers = (
   poll: ApiResponsePollNumPlayers,
-): PollNumPlayers => {
+): PayloadThingPollNumPlayers => {
   return {
     name: poll._attributes.name,
     title: poll._attributes.title,
@@ -249,8 +218,8 @@ const transformPollSuggestedNumPlayers = (
 
 // Typescript doesn't recognize discriminated unions for nested properties, so this is a workaround
 // Avoids needing overly complex type guards
-const transformPoll = (apiPolls: ApiResponsePolls): Polls => {
-  const polls: Polls = [];
+const transformPoll = (apiPolls: ApiResponsePolls): PayloadThingPolls => {
+  const polls: PayloadThingPolls = [];
 
   apiPolls.forEach((apiPoll) => {
     switch (apiPoll._attributes.name) {

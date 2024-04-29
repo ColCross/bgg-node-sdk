@@ -1,10 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import {
-  ParamsPlaysUsername,
-  PayloadPlaysUsername,
-} from "~/routes/types/public";
+import { ParamsPlaysUsername } from "~/routes/types/params";
+import { PayloadPlaysUsername } from "~/routes/types/payloads";
 import {
   ApiResponseAttributesBase,
   ApiResponseBase,

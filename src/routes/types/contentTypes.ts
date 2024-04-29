@@ -17,3 +17,9 @@ export type rpgperson = "rpgperson";
 export type thing = "thing";
 export type videogame = "videogame";
 export type videogamecompany = "videogamecompany";
+
+/** YYYY-MM-DD */
+export type Date = string;
+
+/** YYYY-MM-DD HH:MM:SS */
+export type DateTime = string;

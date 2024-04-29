@@ -1,0 +1,5 @@
+{
+  "plugin": ["typedoc-material-theme"],
+  "themeColor": "#5D3FD3",
+  "out": "docs"
+}

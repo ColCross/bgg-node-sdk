@@ -1,11 +1,11 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
+import { ParamsGuild } from "~/routes/types/params";
 import {
-  ParamsGuild,
   PayloadGuildSuccess,
   PayloadGuildError,
-} from "~/routes/types/public";
+} from "~/routes/types/payloads";
 
 type ApiResponseError = {
   _attributes: {

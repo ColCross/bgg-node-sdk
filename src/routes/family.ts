@@ -1,7 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsFamily, PayloadFamily } from "~/routes/types/public";
+import { ParamsFamily } from "~/routes/types/params";
+import { PayloadFamily } from "~/routes/types/payloads";
 
 type ParamsTransformed = Omit<ParamsFamily, "id" | "type"> & {
   id: string;

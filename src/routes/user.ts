@@ -1,7 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsUser, PayloadUser } from "~/routes/types/public";
+import { ParamsUser } from "~/routes/types/params";
+import { PayloadUser } from "~/routes/types/payloads";
 
 type ApiResponseBuddy = {
   _attributes: {

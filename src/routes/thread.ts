@@ -1,7 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsThread, PayloadThread } from "~/routes/types/public";
+import { ParamsThread } from "~/routes/types/params";
+import { PayloadThread } from "~/routes/types/payloads";
 
 type ApiResponse = {
   thread: {

@@ -1,7 +1,8 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsSearch, PayloadSearch } from "~/routes/types/public";
+import { ParamsSearch } from "~/routes/types/params";
+import { PayloadSearch } from "~/routes/types/payloads";
 
 type ParamsTransformed = Omit<ParamsSearch, "type"> & {
   type?: string;

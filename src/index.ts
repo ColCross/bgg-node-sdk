@@ -10,6 +10,7 @@ import * as forumList from "~/routes/forumList";
 import * as forum from "~/routes/forum";
 import * as thread from "~/routes/thread";
 
+/** @namespace */
 export const bgg = {
   ...collection,
   ...family,
@@ -26,4 +27,4 @@ export const bgg = {
 
 export default bgg;
 
-export * from "~/routes/types/public";
+export * from "~/routes/types/index";

@@ -1,8 +1,9 @@
 import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
-import { ParamsForumList, PayloadForumList } from "~/routes/types/public";
-import { thing, family } from "~/routes/types/shared";
+import { ParamsForumList } from "~/routes/types/params";
+import { PayloadForumList } from "~/routes/types/payloads";
+import { thing, family } from "~/routes/types/contentTypes";
 
 type ApiResponse = {
   forums: {
