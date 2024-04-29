@@ -34,4 +34,3 @@ const results = await bgg.search({ query: "scythe" });
 
 - Make typing more consistent across routes (ex: page param)
 - Create unit tests for all endpoints
-- Documentation site
