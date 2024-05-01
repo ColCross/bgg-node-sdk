@@ -8,7 +8,7 @@ type ParamsTransformed = Omit<ParamsHot, "type"> & {
   type: string;
 };
 
-const getParams = (args?: ParamsHot): ParamsTransformed | undefined => {
+export const getParams = (args?: ParamsHot): ParamsTransformed | undefined => {
   if (!args) return undefined;
 
   return {
