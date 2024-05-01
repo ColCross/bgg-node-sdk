@@ -1,6 +1,6 @@
 {
   "name": "bgg-sdk",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Node SDK for querying the Board Game Geek (BGG) XML2 API",
   "homepage": "https://colcross.github.io/bgg-sdk/",
   "main": "./dist/index.js",
