@@ -199,7 +199,7 @@ export type PayloadHot = {
     id: string;
     rank: string;
     name: string;
-    yearPublished: string;
+    yearPublished?: string;
     thumbnail: string;
   }>;
 };

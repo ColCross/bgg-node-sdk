@@ -1,2 +1,2 @@
-export * from "./username";
-export * from "./id";
+export { username } from "./username";
+export { id } from "./id";
