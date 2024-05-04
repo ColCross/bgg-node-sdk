@@ -57,7 +57,7 @@ export type PayloadPlaysUsername = {
       subtypes: Array<string>;
     };
   }>;
-};
+} | null;
 
 export type PayloadCollection = {
   attributes: {

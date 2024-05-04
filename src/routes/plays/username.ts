@@ -41,14 +41,26 @@ type ApiResponse = {
   };
 };
 
-type ApiResponsePlaysUsername = ApiResponseBase<
-  ApiResponseAttributes,
-  ApiResponse
->;
+type ApiResponseError = {
+  div: {
+    _attributes: {
+      class: string;
+    };
+    _text: string;
+  };
+};
+
+type ApiResponsePlaysUsername =
+  | ApiResponseBase<ApiResponseAttributes, ApiResponse>
+  | ApiResponseError;
 
 const transformData = (
   data: ApiResponsePlaysUsername,
 ): PayloadPlaysUsername => {
+  if ("div" in data) {
+    return null;
+  }
+
   return {
     attributes: {
       termsofuse: data.plays._attributes.termsofuse,
@@ -80,8 +92,11 @@ const transformData = (
 export const username = async (
   params: ParamsPlaysUsername,
 ): Promise<PayloadPlaysUsername> => {
-  const { data } = await axios.get<ApiResponsePlaysUsername>("/plays", {
-    params,
-  });
+  const { data } = await axios.get<ApiResponsePlaysUsername | ApiResponseError>(
+    "/plays",
+    {
+      params,
+    },
+  );
   return transformData(data);
 };

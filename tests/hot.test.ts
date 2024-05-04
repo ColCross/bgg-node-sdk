@@ -1,9 +1,9 @@
-import { axios } from "~/lib/axios";
 import MockAdapter from "axios-mock-adapter";
+import { axios } from "~/lib/axios";
 
-import { hot, getParams } from "../src/routes/hot";
-import { PayloadHot } from "../src/routes/types/payloads";
+import { hot, getParams } from "~/routes/hot";
 import { ParamsHot } from "~/routes/types/params";
+import { PayloadHot } from "~/routes/types/payloads";
 
 const mock = new MockAdapter(axios);
 

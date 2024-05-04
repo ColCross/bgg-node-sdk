@@ -25,7 +25,7 @@ import {
 export type ParamsPlayBase = {
   minDate?: Date;
   maxDate?: Date;
-  subtype?: Array<
+  subtype?:
     | boardgame
     | boardgameexpansion
     | boardgameaccessory
@@ -34,8 +34,7 @@ export type ParamsPlayBase = {
     | boardgameimplementation
     | rpg
     | rpgitem
-    | videogame
-  >;
+    | videogame;
   page?: number;
 };
 
