@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ColCross/bgg-node-sdk.git"
+    "url": "git+https://github.com/ColCross/bgg-sdk.git"
   },
   "scripts": {
     "build": "tsup",
@@ -19,7 +19,7 @@
     "format": "prettier --ignore-unknown --write .",
     "lint": "eslint .",
     "prepare": "husky",
-    "test": "jest --passWithNoTests"
+    "test": "jest --verbose"
   },
   "keywords": [
     "bgg",
