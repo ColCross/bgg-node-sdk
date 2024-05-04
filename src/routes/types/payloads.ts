@@ -70,9 +70,9 @@ export type PayloadCollection = {
     collId: string;
     type: string;
     name: string;
-    yearPublished: string;
-    image: string;
-    thumbnail: string;
+    yearPublished?: string;
+    image?: string;
+    thumbnail?: string;
     status: {
       own: boolean;
       prevOwned: boolean;
@@ -86,7 +86,7 @@ export type PayloadCollection = {
     };
     numPlays: number;
   }>;
-};
+} | null;
 
 export type PayloadFamily = {
   attributes: {

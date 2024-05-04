@@ -28,13 +28,13 @@ type ApiResponseItem = {
     };
     _text: string;
   };
-  yearpublished: {
+  yearpublished?: {
     _text: string;
   };
-  image: {
+  image?: {
     _text: string;
   };
-  thumbnail: {
+  thumbnail?: {
     _text: string;
   };
   status: {
@@ -66,7 +66,7 @@ type ApiResponse = {
   };
 };
 
-const transformData = (data: ApiResponse): PayloadCollection | null => {
+const transformData = (data: ApiResponse): PayloadCollection => {
   if (!data.items) {
     return null;
   }
@@ -84,8 +84,8 @@ const transformData = (data: ApiResponse): PayloadCollection | null => {
         type: data._attributes.objecttype,
         name: data.name._text,
         yearPublished: data.yearpublished?._text,
-        image: data.image._text,
-        thumbnail: data.thumbnail._text,
+        image: data.image?._text,
+        thumbnail: data.thumbnail?._text,
         status: {
           own: Boolean(Number(data.status._attributes.own)),
           prevOwned: Boolean(Number(data.status._attributes.prevowned)),
@@ -105,7 +105,7 @@ const transformData = (data: ApiResponse): PayloadCollection | null => {
 
 export const collection = async (
   params: ParamsCollection,
-): Promise<PayloadCollection | null> => {
+): Promise<PayloadCollection> => {
   const { data } = await axios.get<ApiResponse>("/collection", {
     params: transformParams(params),
   });
