@@ -7,6 +7,8 @@ import { PayloadPlaysId } from "~/routes/types/payloads";
 
 const mock = new MockAdapter(axios);
 
+const endpoint = "/plays";
+
 describe("plays by id", () => {
   it("should fetch plays by id data with an empty result and handle it", async () => {
     const mockApiResponse = `<?xml version="1.0" encoding="utf-8"?>
@@ -23,7 +25,7 @@ describe("plays by id", () => {
 
     const params: ParamsPlaysId = { id: "1", type: "thing" };
 
-    mock.onGet("/plays", { params }).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, { params }).replyOnce(200, mockApiResponse);
 
     const result = await id(params);
 
@@ -84,7 +86,7 @@ describe("plays by id", () => {
 
     const params: ParamsPlaysId = { id: "1", type: "thing" };
 
-    mock.onGet("/plays", { params }).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, { params }).replyOnce(200, mockApiResponse);
 
     const result = await id(params);
 

@@ -7,6 +7,8 @@ import { PayloadHot } from "~/routes/types/payloads";
 
 const mock = new MockAdapter(axios);
 
+const endpoint = "/hot";
+
 describe("hot", () => {
   it("should fetch hot data with an empty result and handle it", async () => {
     const mockApiResponse = `
@@ -21,7 +23,7 @@ describe("hot", () => {
       items: [],
     };
 
-    mock.onGet("/hot").replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint).replyOnce(200, mockApiResponse);
 
     const result = await hot();
 
@@ -68,7 +70,7 @@ describe("hot", () => {
       ],
     };
 
-    mock.onGet("/hot").replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint).replyOnce(200, mockApiResponse);
 
     const result = await hot();
 
@@ -115,7 +117,7 @@ describe("hot", () => {
     };
 
     mock
-      .onGet("/hot", { params: getParams(params) })
+      .onGet(endpoint, { params: getParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await hot(params);

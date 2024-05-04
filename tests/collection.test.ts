@@ -7,6 +7,8 @@ import { PayloadCollection } from "~/routes/types/payloads";
 
 const mock = new MockAdapter(axios);
 
+const endpoint = "/collection";
+
 describe("collection", () => {
   it("should fetch collection data with an empty result and handle it", async () => {
     const mockApiResponse = `
@@ -26,7 +28,7 @@ describe("collection", () => {
 
     const params: ParamsCollection = { username: "user" };
 
-    mock.onGet("/collection", params).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
 
     const result = await collection(params);
 
@@ -175,7 +177,7 @@ describe("collection", () => {
     };
     const params: ParamsCollection = { username: "user" };
 
-    mock.onGet("/collection", params).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
 
     const result = await collection(params);
 
@@ -196,7 +198,7 @@ describe("collection", () => {
 
     const params: ParamsCollection = { username: "user" };
 
-    mock.onGet("/collection", params).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
 
     const result = await collection(params);
 

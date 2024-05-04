@@ -7,6 +7,8 @@ import { PayloadPlaysUsername } from "~/routes/types/payloads";
 
 const mock = new MockAdapter(axios);
 
+const endpoint = "/plays";
+
 describe("plays by username", () => {
   it("should fetch plays by username data with an error result and respond null", async () => {
     const mockApiResponse = `
@@ -18,7 +20,7 @@ describe("plays by username", () => {
 
     const params: ParamsPlaysUsername = { username: "user" };
 
-    mock.onGet("/plays", { params }).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, { params }).replyOnce(200, mockApiResponse);
 
     const result = await username(params);
 
@@ -57,7 +59,7 @@ describe("plays by username", () => {
 
     const params: ParamsPlaysUsername = { username: "user" };
 
-    mock.onGet("/plays", { params }).replyOnce(200, mockApiResponse);
+    mock.onGet(endpoint, { params }).replyOnce(200, mockApiResponse);
 
     const result = await username(params);
 
@@ -133,7 +135,7 @@ describe("plays by username", () => {
 
     const params: ParamsPlaysUsername = { username: "user", subtype: "rpg" };
 
-    mock.onGet("/plays", { params }).replyOnce(200, emptyMockApiResponse);
+    mock.onGet(endpoint, { params }).replyOnce(200, emptyMockApiResponse);
 
     const result = await username(params);
 
