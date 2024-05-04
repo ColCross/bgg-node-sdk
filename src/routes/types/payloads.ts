@@ -130,7 +130,7 @@ export type PayloadForum = {
     postDate: string;
     lastPostDate: string;
   }>;
-};
+} | null;
 
 export type PayloadForumList = {
   attributes: {
