@@ -214,7 +214,7 @@ export type PayloadSearch = {
     id: string;
     type: string;
     name: string;
-    yearPublished: string;
+    yearPublished?: string;
   }>;
 };
 
