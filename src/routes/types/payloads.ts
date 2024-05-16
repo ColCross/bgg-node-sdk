@@ -162,7 +162,7 @@ export type PayloadGuildSuccess = {
     name: string;
     created: string;
     category: string;
-    website: string;
+    website?: string;
     manager: string;
     description: string;
     location: {
@@ -190,6 +190,8 @@ export type PayloadGuildError = {
   };
   guild: null;
 };
+
+export type PayloadGuild = PayloadGuildSuccess | PayloadGuildError;
 
 export type PayloadHot = {
   attributes: {

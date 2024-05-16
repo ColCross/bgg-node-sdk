@@ -2,10 +2,7 @@ import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsGuild } from "~/routes/types/params";
-import {
-  PayloadGuildSuccess,
-  PayloadGuildError,
-} from "~/routes/types/payloads";
+import { PayloadGuild } from "~/routes/types/payloads";
 
 type ApiResponseError = {
   _attributes: {
@@ -48,9 +45,7 @@ type ApiResponse = {
   guild: ApiResponseSuccess | ApiResponseError;
 };
 
-const transformData = (
-  data: ApiResponse,
-): PayloadGuildSuccess | PayloadGuildError => {
+const transformData = (data: ApiResponse): PayloadGuild => {
   if ("error" in data.guild) {
     return {
       attributes: {
@@ -95,9 +90,7 @@ const transformData = (
   };
 };
 
-export const guild = async (
-  params: ParamsGuild,
-): Promise<PayloadGuildSuccess | PayloadGuildError> => {
+export const guild = async (params: ParamsGuild): Promise<PayloadGuild> => {
   const { data } = await axios.get<ApiResponse>("/guild", {
     params,
   });
