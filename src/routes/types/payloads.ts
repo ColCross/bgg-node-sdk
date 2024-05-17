@@ -258,6 +258,18 @@ export type PayloadThingPolls = Array<
   | PayloadThingPollSuggestedPlayerAge
 >;
 
+type PayloadThingLinks = {
+  type: string;
+  id: string;
+  value: string;
+};
+
+type PayloadThingNames = {
+  type: string;
+  sortindex: string;
+  value: string;
+};
+
 export type PayloadThing = {
   attributes: {
     termsofuse: string;
@@ -267,11 +279,7 @@ export type PayloadThing = {
     type: string;
     thumbnail: string;
     image: string;
-    names: Array<{
-      type: string;
-      sortindex: string;
-      value: string;
-    }>;
+    names: Array<PayloadThingNames>;
     description: string;
     yearPublished: string;
     minPlayers: string;
@@ -280,12 +288,84 @@ export type PayloadThing = {
     minPlayTime: string;
     maxPlayTime: string;
     minAge: string;
-    links: Array<{
+    links: Array<PayloadThingLinks>;
+    polls: PayloadThingPolls;
+    comments?: {
+      page: string;
+      total: string;
+      comment: Array<{
+        username: string;
+        rating: string;
+        value: string;
+      }>;
+    };
+    marketplace?: {
+      listings: Array<{
+        listDate: string;
+        price: {
+          value: string;
+          currency: string;
+        };
+        condition: string;
+        notes: string;
+        link: {
+          href: string;
+          title: string;
+        };
+      }>;
+    };
+    statistics?: {
+      page: string;
+      ratings: {
+        usersRated: string;
+        average: string;
+        bayesAverage: string;
+        ranks: Array<{
+          type: string;
+          id: string;
+          name: string;
+          friendlyName: string;
+          value: string;
+          bayesAverage: string;
+        }>;
+      };
+      stdDev: string;
+      median: string;
+      owned: string;
+      trading: string;
+      wanting: string;
+      wishing: string;
+      numComments: string;
+      numWeights: string;
+      averageWeight: string;
+    };
+    versions?: Array<{
       type: string;
       id: string;
-      value: string;
+      thumbnail?: string;
+      image?: string;
+      links: Array<PayloadThingLinks>;
+      names: Array<PayloadThingNames>;
+      yearPublished: string;
+      productCode: string;
+      width: string;
+      length: string;
+      depth: string;
+      weight: string;
     }>;
-    polls: PayloadThingPolls;
+    videos?: {
+      total: string;
+      videos: Array<{
+        id: string;
+        title: string;
+        category: string;
+        language: string;
+        link: string;
+        username: string;
+        userid: string;
+        postdate: string;
+      }>;
+    };
   }>;
 };
 
