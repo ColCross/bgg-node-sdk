@@ -386,7 +386,7 @@ export type PayloadThread = {
     numEdits: string;
     body: string;
   }>;
-};
+} | null;
 
 export type PayloadUser = {
   termsOfUse: string;

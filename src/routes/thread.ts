@@ -4,7 +4,17 @@ import { enforceArray } from "~/lib/helpers";
 import { ParamsThread } from "~/routes/types/params";
 import { PayloadThread } from "~/routes/types/payloads";
 
-type ApiResponse = {
+export const endpoint = "/thread";
+
+type ApiResponseError = {
+  error: {
+    _attributes: {
+      message: string;
+    };
+  };
+};
+
+type ApiResponseSuccess = {
   thread: {
     _attributes: {
       id: string;
@@ -30,7 +40,13 @@ type ApiResponse = {
   };
 };
 
+type ApiResponse = ApiResponseSuccess | ApiResponseError;
+
 const transformData = (data: ApiResponse): PayloadThread => {
+  if ("error" in data) {
+    return null;
+  }
+
   return {
     attributes: {
       id: data.thread._attributes.id,
@@ -51,10 +67,8 @@ const transformData = (data: ApiResponse): PayloadThread => {
   };
 };
 
-export const thread = async (
-  params: ParamsThread,
-): Promise<PayloadThread | null> => {
-  const { data } = await axios.get<ApiResponse>("/thread", {
+export const thread = async (params: ParamsThread): Promise<PayloadThread> => {
+  const { data } = await axios.get<ApiResponse>(endpoint, {
     params,
   });
 

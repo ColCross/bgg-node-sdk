@@ -151,9 +151,9 @@ export type ParamsThing = {
 
 export type ParamsThread = {
   id: string;
-  minArticleId: string;
-  minArticleDate: Date | DateTime;
-  count: string;
+  minArticleId?: string;
+  minArticleDate?: Date | DateTime;
+  count?: string;
 };
 
 export type ParamsUser = {
