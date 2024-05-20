@@ -35,7 +35,7 @@ export type ParamsPlayBase = {
     | rpg
     | rpgitem
     | videogame;
-  page?: number;
+  page?: string;
 };
 
 export type ParamsPlaysId = ParamsPlayBase & {
@@ -79,10 +79,10 @@ export type ParamsCollection = {
   rating?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   minbggrating?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   bggrating?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-  minplays?: number;
-  maxplays?: number;
+  minplays?: string;
+  maxplays?: string;
   showprivate?: true;
-  collid?: number;
+  collid?: string;
   modifiedsince?: string;
 };
 
@@ -145,8 +145,8 @@ export type ParamsThing = {
   marketplace?: true;
   comments?: true;
   ratingcomments?: true;
-  page?: number;
-  pagesize?: number;
+  page?: string;
+  pagesize?: string;
 };
 
 export type ParamsThread = {

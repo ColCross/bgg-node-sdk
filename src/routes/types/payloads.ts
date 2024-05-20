@@ -74,17 +74,17 @@ export type PayloadCollection = {
     image?: string;
     thumbnail?: string;
     status: {
-      own: boolean;
-      prevOwned: boolean;
-      forTrade: boolean;
-      want: boolean;
-      wantToPlay: boolean;
-      wantToBuy: boolean;
-      wishList: boolean;
-      preOrdered: boolean;
+      own: string;
+      prevOwned: string;
+      forTrade: string;
+      want: string;
+      wantToPlay: string;
+      wantToBuy: string;
+      wishList: string;
+      preOrdered: string;
       lastModified: string;
     };
-    numPlays: number;
+    numPlays: string;
   }>;
 } | null;
 
