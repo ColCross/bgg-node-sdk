@@ -258,13 +258,13 @@ export type PayloadThingPolls = Array<
   | PayloadThingPollSuggestedPlayerAge
 >;
 
-type PayloadThingLinks = {
+export type PayloadThingLinks = {
   type: string;
   id: string;
   value: string;
 };
 
-type PayloadThingNames = {
+export type PayloadThingNames = {
   type: string;
   sortindex: string;
   value: string;
