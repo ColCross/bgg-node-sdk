@@ -6,11 +6,11 @@ import { PayloadSearch } from "~/routes/types/payloads";
 
 export const endpoint = "/search";
 
-type ParamsTransformed = Omit<ParamsSearch, "type"> & {
+export type ParamsTransformed = Omit<ParamsSearch, "type"> & {
   type?: string;
 };
 
-export const getParams = (args: ParamsSearch): ParamsTransformed => {
+export const transformParams = (args: ParamsSearch): ParamsTransformed => {
   return {
     ...args,
     type: args.type ? args.type.join(",") : undefined,
@@ -47,7 +47,7 @@ const transformData = (data: ApiResponse): PayloadSearch => {
 };
 
 export const search = async (args: ParamsSearch): Promise<PayloadSearch> => {
-  const params = getParams(args);
+  const params = transformParams(args);
   const { data } = await axios.get<ApiResponse>(endpoint, { params });
 
   return transformData(data);

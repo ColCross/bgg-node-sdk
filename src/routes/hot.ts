@@ -4,11 +4,13 @@ import { enforceArray } from "~/lib/helpers";
 import { ParamsHot } from "~/routes/types/params";
 import { PayloadHot } from "~/routes/types/payloads";
 
-type ParamsTransformed = Omit<ParamsHot, "type"> & {
-  type: string;
-};
+export type ParamsTransformed =
+  | (Omit<ParamsHot, "type"> & {
+      type: string;
+    })
+  | undefined;
 
-export const getParams = (args?: ParamsHot): ParamsTransformed | undefined => {
+export const transformParams = (args?: ParamsHot): ParamsTransformed => {
   if (!args) return undefined;
 
   return {
@@ -49,7 +51,7 @@ const transformData = (data: ApiResponse): PayloadHot => {
 
 export const hot = async (params?: ParamsHot): Promise<PayloadHot> => {
   const { data } = await axios.get<ApiResponse>("/hot", {
-    params: getParams(params),
+    params: transformParams(params),
   });
 
   return transformData(data);

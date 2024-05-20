@@ -12,12 +12,12 @@ import {
 
 export const endpoint = "/thing";
 
-type ParamsTransformed = Omit<ParamsThing, "id" | "type"> & {
+export type ParamsTransformed = Omit<ParamsThing, "id" | "type"> & {
   id: string;
   type?: string;
 };
 
-export const getParams = (args: ParamsThing): ParamsTransformed => {
+export const transformParams = (args: ParamsThing): ParamsTransformed => {
   return {
     ...args,
     id: args.id.join(","),
@@ -602,7 +602,7 @@ const transformData = (data: ApiResponse): PayloadThing => {
 
 export const thing = async (params: ParamsThing): Promise<PayloadThing> => {
   const { data } = await axios.get<ApiResponse>(endpoint, {
-    params: getParams(params),
+    params: transformParams(params),
   });
 
   return transformData(data);

@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import { axios } from "~/lib/axios";
 
-import { hot, getParams } from "~/routes/hot";
+import { ParamsTransformed, hot, transformParams } from "~/routes/hot";
 import { ParamsHot } from "~/routes/types/params";
 import { PayloadHot } from "~/routes/types/payloads";
 
@@ -117,11 +117,25 @@ describe("hot", () => {
     };
 
     mock
-      .onGet(endpoint, { params: getParams(params) })
+      .onGet(endpoint, { params: transformParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await hot(params);
 
     expect(result).toEqual(mockPayload);
+  });
+
+  it("should transform raw params", async () => {
+    const rawParams: ParamsHot = {
+      type: ["videogame", "boardgamecompany"],
+    };
+
+    const transformedParams = transformParams(rawParams);
+
+    const expectedParams: ParamsTransformed = {
+      type: "videogame,boardgamecompany",
+    };
+
+    expect(transformedParams).toEqual(expectedParams);
   });
 });

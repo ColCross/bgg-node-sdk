@@ -1,7 +1,12 @@
 import MockAdapter from "axios-mock-adapter";
 import { axios } from "~/lib/axios";
 
-import { endpoint, getParams, search } from "~/routes/search";
+import {
+  ParamsTransformed,
+  endpoint,
+  transformParams,
+  search,
+} from "~/routes/search";
 import { ParamsSearch } from "~/routes/types/params";
 import { PayloadSearch } from "~/routes/types/payloads";
 
@@ -29,7 +34,7 @@ describe("search", () => {
     const params: ParamsSearch = { query: "scythe" };
 
     mock
-      .onGet(endpoint, { params: getParams(params) })
+      .onGet(endpoint, { params: transformParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await search(params);
@@ -71,7 +76,7 @@ describe("search", () => {
     const params: ParamsSearch = { query: "abcdefg" };
 
     mock
-      .onGet(endpoint, { params: getParams(params) })
+      .onGet(endpoint, { params: transformParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await search(params);
@@ -84,5 +89,21 @@ describe("search", () => {
     };
 
     expect(result).toEqual(mockPayload);
+  });
+
+  it("should transform raw params", async () => {
+    const rawParams: ParamsSearch = {
+      query: "scythe",
+      type: ["videogame", "boardgameexpansion"],
+    };
+
+    const transformedParams = transformParams(rawParams);
+
+    const expectedParams: ParamsTransformed = {
+      query: "scythe",
+      type: "videogame,boardgameexpansion",
+    };
+
+    expect(transformedParams).toEqual(expectedParams);
   });
 });

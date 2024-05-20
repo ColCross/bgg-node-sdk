@@ -53,15 +53,13 @@ type ApiResponseBody = {
 };
 
 type ApiResponse = {
-  items?: {
+  items: {
     _attributes: { termsofuse: string };
     item?: ApiResponseBody | Array<ApiResponseBody>;
   };
 };
 
-const transformData = (data: ApiResponse): PayloadFamily | null => {
-  if (!data.items) return null;
-
+const transformData = (data: ApiResponse): PayloadFamily => {
   return {
     attributes: {
       termsOfUse: data.items._attributes.termsofuse,
@@ -89,9 +87,7 @@ const transformData = (data: ApiResponse): PayloadFamily | null => {
   };
 };
 
-export const family = async (
-  params: ParamsFamily,
-): Promise<PayloadFamily | null> => {
+export const family = async (params: ParamsFamily): Promise<PayloadFamily> => {
   const { data } = await axios.get<ApiResponse>("/family", {
     params: transformParams(params),
   });

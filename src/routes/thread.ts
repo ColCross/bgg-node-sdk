@@ -23,7 +23,7 @@ type ApiResponseSuccess = {
       termsofuse: string;
     };
     subject: { _text: string };
-    articles?: {
+    articles: {
       article: Array<{
         _attributes: {
           id: string;
@@ -55,7 +55,7 @@ const transformData = (data: ApiResponse): PayloadThread => {
       termsOfUse: data.thread._attributes.termsofuse,
     },
     subject: data.thread.subject._text,
-    articles: enforceArray(data.thread.articles?.article).map((article) => ({
+    articles: enforceArray(data.thread.articles.article).map((article) => ({
       id: article._attributes.id,
       username: article._attributes.username,
       link: article._attributes.link,

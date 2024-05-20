@@ -1,7 +1,12 @@
 import MockAdapter from "axios-mock-adapter";
 import { axios } from "~/lib/axios";
 
-import { endpoint, thing, getParams } from "~/routes/thing";
+import {
+  ParamsTransformed,
+  endpoint,
+  thing,
+  transformParams,
+} from "~/routes/thing";
 import { ParamsThing } from "~/routes/types/params";
 import { PayloadThing } from "~/routes/types/payloads";
 
@@ -690,7 +695,7 @@ describe("thing", () => {
     };
 
     mock
-      .onGet(endpoint, { params: getParams(params) })
+      .onGet(endpoint, { params: transformParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await thing(params);
@@ -2703,7 +2708,7 @@ describe("thing", () => {
     };
 
     mock
-      .onGet(endpoint, { params: getParams(params) })
+      .onGet(endpoint, { params: transformParams(params) })
       .replyOnce(200, mockApiResponse);
 
     const result = await thing(params);
@@ -2716,5 +2721,21 @@ describe("thing", () => {
     };
 
     expect(result).toEqual(mockPayload);
+  });
+
+  it("should transform raw params", async () => {
+    const rawParams: ParamsThing = {
+      id: ["12312312"],
+      type: ["videogame", "boardgameexpansion"],
+    };
+
+    const transformedParams = transformParams(rawParams);
+
+    const expectedParams: ParamsTransformed = {
+      id: "12312312",
+      type: "videogame,boardgameexpansion",
+    };
+
+    expect(transformedParams).toEqual(expectedParams);
   });
 });
