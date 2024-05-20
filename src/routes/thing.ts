@@ -449,9 +449,6 @@ const transformPoll = (apiPolls: ApiResponsePolls): PayloadThingPolls => {
         );
         break;
       }
-      default: {
-        return null;
-      }
     }
   });
 
