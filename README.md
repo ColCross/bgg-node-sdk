@@ -29,9 +29,47 @@ import { bgg } from "bgg-sdk";
 // import bgg from "bgg-sdk";
 
 const results = await bgg.search({ query: "scythe" });
+
+// results
+{
+  "attributes": {
+    "termsofuse": "https://boardgamegeek.com/xmlapi/termsofuse"
+  },
+  "items": [
+    {
+      "id": "398158",
+      "type": "boardgame",
+      "name": "Grind House: Scythes Out",
+      "yearPublished": "2023"
+    },
+    {
+      "id": "226320",
+      "type": "boardgame",
+      "name": "My Little Scythe",
+      "yearPublished": "2017"
+    },
+    ...
+  ]
+}
 ```
 
-## TODO
+## Contributing
 
-- Make typing more consistent across routes (ex: page param)
-- Write instructions for contributing to project
+Hey there! 👋
+
+I hope you've found my sdk useful for your project, but if you found any bugs please open an issue and I'll address it as soon as I can.
+
+Of course always feel free to take a crack at fixing it yourself and opening a PR!
+
+### Getting Started
+
+1. **Fork the repo** and clone it to your machine.
+2. **Install dependencies** with `npm install`.
+3. **Make your changes** in a new branch.
+4. **Test your changes** to make sure everything works as expected.
+   1. Run `npm test` and fix / add any necessary tests to maintain 100% code coverage. _Your PR cannot be merged until all tests pass._
+5. **Submit a pull request** with a clear description of your changes.
+
+## Future Plans
+
+- Do proper type casting so not all return types are strings. (consequence of working with original xml data)
