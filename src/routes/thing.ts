@@ -228,10 +228,10 @@ type ApiResponseBody = {
     type: string;
     id: string;
   };
-  thumbnail: {
+  thumbnail?: {
     _text: string;
   };
-  image: {
+  image?: {
     _text: string;
   };
   name: ApiResponseName | Array<ApiResponseName>;
@@ -468,19 +468,19 @@ const transformData = (data: ApiResponse): PayloadThing => {
         image: data.image?._text,
         names: enforceArray(data.name).map((name) => {
           return {
-            type: name._attributes.type ?? "",
+            type: name._attributes.type,
             sortindex: name._attributes.sortindex,
             value: name._attributes.value,
           };
         }),
-        description: data.description?._text,
-        yearPublished: data.yearpublished?._attributes.value,
-        minPlayers: data.minplayers?._attributes.value,
-        maxPlayers: data.maxplayers?._attributes.value,
-        playingTime: data.playingtime?._attributes.value,
-        minPlayTime: data.minplaytime?._attributes.value,
-        maxPlayTime: data.maxplaytime?._attributes.value,
-        minAge: data.minage?._attributes.value,
+        description: data.description._text,
+        yearPublished: data.yearpublished._attributes.value,
+        minPlayers: data.minplayers._attributes.value,
+        maxPlayers: data.maxplayers._attributes.value,
+        playingTime: data.playingtime._attributes.value,
+        minPlayTime: data.minplaytime._attributes.value,
+        maxPlayTime: data.maxplaytime._attributes.value,
+        minAge: data.minage._attributes.value,
         links: enforceArray(data.link).map((link) => {
           return {
             type: link._attributes.type,
@@ -567,17 +567,17 @@ const transformData = (data: ApiResponse): PayloadThing => {
               }),
               names: enforceArray(item.name).map((name) => {
                 return {
-                  type: name._attributes.type ?? "",
+                  type: name._attributes.type,
                   sortindex: name._attributes.sortindex,
                   value: name._attributes.value,
                 };
               }),
-              yearPublished: item.yearpublished?._attributes.value,
-              productCode: item.productcode?._attributes.value,
-              width: item.width?._attributes.value,
-              length: item.length?._attributes.value,
-              depth: item.depth?._attributes.value,
-              weight: item.weight?._attributes.value,
+              yearPublished: item.yearpublished._attributes.value,
+              productCode: item.productcode._attributes.value,
+              width: item.width._attributes.value,
+              length: item.length._attributes.value,
+              depth: item.depth._attributes.value,
+              weight: item.weight._attributes.value,
             };
           }),
         videos: data.videos && {

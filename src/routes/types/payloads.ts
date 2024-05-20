@@ -277,8 +277,8 @@ export type PayloadThing = {
   items: Array<{
     id: string;
     type: string;
-    thumbnail: string;
-    image: string;
+    thumbnail?: string;
+    image?: string;
     names: Array<PayloadThingNames>;
     description: string;
     yearPublished: string;
