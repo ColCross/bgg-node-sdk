@@ -29,9 +29,9 @@ type ApiResponseSuccess = {
     addr1: { _text?: string };
     addr2: { _text?: string };
     city: { _text?: string };
-    stateorprovince?: { _text: string };
-    postalcode?: { _text: string };
-    country?: { _text: string };
+    stateorprovince: { _text?: string };
+    postalcode: { _text?: string };
+    country: { _text?: string };
   };
   members?: {
     _attributes: { count: string; page: string };
@@ -74,9 +74,9 @@ const transformData = (data: ApiResponse): PayloadGuild => {
         addr1: data.guild.location.addr1._text,
         addr2: data.guild.location.addr2._text,
         city: data.guild.location.city._text,
-        stateorprovince: data.guild.location.stateorprovince?._text,
-        postalcode: data.guild.location.postalcode?._text,
-        country: data.guild.location.country?._text,
+        stateorprovince: data.guild.location.stateorprovince._text,
+        postalcode: data.guild.location.postalcode._text,
+        country: data.guild.location.country._text,
       },
       members: data.guild.members && {
         count: data.guild.members._attributes.count,

@@ -53,7 +53,6 @@ describe("collection", () => {
             </item>
             <item objecttype="thing" objectid="373169" subtype="boardgame" collid="112288095">
                 <name sortindex="1">20 Strong: Hoplomachus Victorum</name>
-                <yearpublished>2023</yearpublished>
                 <image>https://cf.geekdo-images.com/SW9-PEYuqUrPdpJ2yQGJQw__original/img/tL4XWJo34nHiMpMTvFkqRh-EMWU=/0x0/filters:format(png)/pic7858266.png</image>
                 <thumbnail>https://cf.geekdo-images.com/SW9-PEYuqUrPdpJ2yQGJQw__thumb/img/ZFNesclBVJ8ciCcuofX4u9Z9cgE=/fit-in/200x150/filters:strip_icc()/pic7858266.png</thumbnail>
                 <status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2023-11-10 11:28:13" />
@@ -62,7 +61,6 @@ describe("collection", () => {
             <item objecttype="thing" objectid="373168" subtype="boardgame" collid="112288098">
                 <name sortindex="1">20 Strong: Too Many Bones</name>
                 <yearpublished>2023</yearpublished>
-                <image>https://cf.geekdo-images.com/LaQEc_vLxzee8FDw-Y1qnw__original/img/ibylQPK1odh659u1ilgdP5UieQ8=/0x0/filters:format(png)/pic7858265.png</image>
                 <thumbnail>https://cf.geekdo-images.com/LaQEc_vLxzee8FDw-Y1qnw__thumb/img/7XLOTpi5-RBFV_huFki2TV8lYTk=/fit-in/200x150/filters:strip_icc()/pic7858265.png</thumbnail>
                 <status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2023-11-10 11:28:15" />
                 <numplays>0</numplays>
@@ -71,7 +69,6 @@ describe("collection", () => {
                 <name sortindex="1">303 Squadron</name>
                 <yearpublished>2021</yearpublished>
                 <image>https://cf.geekdo-images.com/A5CbwXTS8u1hSjUkUcahyw__original/img/yVh46G19w-sbvUL4NLKU_3C9Xb0=/0x0/filters:format(png)/pic4722439.png</image>
-                <thumbnail>https://cf.geekdo-images.com/A5CbwXTS8u1hSjUkUcahyw__thumb/img/DHk_gg_KyjRbMQfNfD9gppLv1rQ=/fit-in/200x150/filters:strip_icc()/pic4722439.png</thumbnail>
                 <status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2022-01-06 06:41:53" />
                 <numplays>2</numplays>
             </item>
@@ -113,7 +110,6 @@ describe("collection", () => {
           collId: "112288095",
           type: "thing",
           name: "20 Strong: Hoplomachus Victorum",
-          yearPublished: "2023",
           image:
             "https://cf.geekdo-images.com/SW9-PEYuqUrPdpJ2yQGJQw__original/img/tL4XWJo34nHiMpMTvFkqRh-EMWU=/0x0/filters:format(png)/pic7858266.png",
           thumbnail:
@@ -137,8 +133,6 @@ describe("collection", () => {
           type: "thing",
           name: "20 Strong: Too Many Bones",
           yearPublished: "2023",
-          image:
-            "https://cf.geekdo-images.com/LaQEc_vLxzee8FDw-Y1qnw__original/img/ibylQPK1odh659u1ilgdP5UieQ8=/0x0/filters:format(png)/pic7858265.png",
           thumbnail:
             "https://cf.geekdo-images.com/LaQEc_vLxzee8FDw-Y1qnw__thumb/img/7XLOTpi5-RBFV_huFki2TV8lYTk=/fit-in/200x150/filters:strip_icc()/pic7858265.png",
           status: {
@@ -162,8 +156,6 @@ describe("collection", () => {
           yearPublished: "2021",
           image:
             "https://cf.geekdo-images.com/A5CbwXTS8u1hSjUkUcahyw__original/img/yVh46G19w-sbvUL4NLKU_3C9Xb0=/0x0/filters:format(png)/pic4722439.png",
-          thumbnail:
-            "https://cf.geekdo-images.com/A5CbwXTS8u1hSjUkUcahyw__thumb/img/DHk_gg_KyjRbMQfNfD9gppLv1rQ=/fit-in/200x150/filters:strip_icc()/pic4722439.png",
           status: {
             own: true,
             prevOwned: false,
