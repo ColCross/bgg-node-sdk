@@ -390,7 +390,7 @@ export type PayloadThread = {
 
 export type PayloadUser = {
   termsOfUse: string;
-  user: null | {
+  user: {
     id: string;
     name: string;
     termsOfUse: string;
@@ -443,4 +443,4 @@ export type PayloadUser = {
       }>;
     };
   };
-};
+} | null;
