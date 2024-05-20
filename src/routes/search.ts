@@ -4,11 +4,13 @@ import { enforceArray } from "~/lib/helpers";
 import { ParamsSearch } from "~/routes/types/params";
 import { PayloadSearch } from "~/routes/types/payloads";
 
-type ParamsTransformed = Omit<ParamsSearch, "type"> & {
+export const endpoint = "/search";
+
+export type ParamsTransformed = Omit<ParamsSearch, "type"> & {
   type?: string;
 };
 
-const getParams = (args: ParamsSearch): ParamsTransformed => {
+export const transformParams = (args: ParamsSearch): ParamsTransformed => {
   return {
     ...args,
     type: args.type ? args.type.join(",") : undefined,
@@ -18,7 +20,7 @@ const getParams = (args: ParamsSearch): ParamsTransformed => {
 type ApiResponseBody = {
   _attributes: { type: string; id: string };
   name: { _attributes: { type: string; value: string } };
-  yearpublished: { _attributes: { value: string } };
+  yearpublished?: { _attributes: { value: string } };
 };
 
 type ApiResponse = {
@@ -38,15 +40,15 @@ const transformData = (data: ApiResponse): PayloadSearch => {
         id: data._attributes.id,
         type: data._attributes.type,
         name: data.name._attributes.value,
-        yearPublished: data.yearpublished._attributes.value,
+        yearPublished: data.yearpublished?._attributes.value,
       };
     }),
   };
 };
 
 export const search = async (args: ParamsSearch): Promise<PayloadSearch> => {
-  const params = getParams(args);
-  const { data } = await axios.get<ApiResponse>("/search", { params });
+  const params = transformParams(args);
+  const { data } = await axios.get<ApiResponse>(endpoint, { params });
 
   return transformData(data);
 };

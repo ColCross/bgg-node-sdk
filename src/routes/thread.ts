@@ -4,7 +4,17 @@ import { enforceArray } from "~/lib/helpers";
 import { ParamsThread } from "~/routes/types/params";
 import { PayloadThread } from "~/routes/types/payloads";
 
-type ApiResponse = {
+export const endpoint = "/thread";
+
+type ApiResponseError = {
+  error: {
+    _attributes: {
+      message: string;
+    };
+  };
+};
+
+type ApiResponseSuccess = {
   thread: {
     _attributes: {
       id: string;
@@ -13,7 +23,7 @@ type ApiResponse = {
       termsofuse: string;
     };
     subject: { _text: string };
-    articles?: {
+    articles: {
       article: Array<{
         _attributes: {
           id: string;
@@ -30,7 +40,13 @@ type ApiResponse = {
   };
 };
 
+type ApiResponse = ApiResponseSuccess | ApiResponseError;
+
 const transformData = (data: ApiResponse): PayloadThread => {
+  if ("error" in data) {
+    return null;
+  }
+
   return {
     attributes: {
       id: data.thread._attributes.id,
@@ -39,7 +55,7 @@ const transformData = (data: ApiResponse): PayloadThread => {
       termsOfUse: data.thread._attributes.termsofuse,
     },
     subject: data.thread.subject._text,
-    articles: enforceArray(data.thread.articles?.article).map((article) => ({
+    articles: enforceArray(data.thread.articles.article).map((article) => ({
       id: article._attributes.id,
       username: article._attributes.username,
       link: article._attributes.link,
@@ -51,10 +67,8 @@ const transformData = (data: ApiResponse): PayloadThread => {
   };
 };
 
-export const thread = async (
-  params: ParamsThread,
-): Promise<PayloadThread | null> => {
-  const { data } = await axios.get<ApiResponse>("/thread", {
+export const thread = async (params: ParamsThread): Promise<PayloadThread> => {
+  const { data } = await axios.get<ApiResponse>(endpoint, {
     params,
   });
 

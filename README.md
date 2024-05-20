@@ -1,6 +1,7 @@
 # bgg-sdk
 
 [![NPM Version](https://img.shields.io/npm/v/bgg-sdk?&logo=npm)](https://www.npmjs.com/package/bgg-sdk)
+[![NPM Version](https://img.shields.io/badge/coverage-100%25-green)](https://github.com/ColCross/bgg-sdk/tree/main/tests)
 
 **WORK IN PROGRESS: NOT YET READY FOR USE**
 
@@ -11,7 +12,7 @@ A modern SDK for interacting with the BoardGameGeek (BGG) XMLAPI2, written in Ty
 - Support for all BGG XMLAPI2 endpoints (see [documentation](https://boardgamegeek.com/wiki/page/BGG_XML_API2))
 - Automatic conversion of responses from XML to JSON
 - Exponential retry for queued requests
-- Type safety for requests and responses
+- Full type safety for requests and responses
 - Support for both CommonJS and ES modules
 - Usable in both server and browser environments
 
@@ -33,4 +34,4 @@ const results = await bgg.search({ query: "scythe" });
 ## TODO
 
 - Make typing more consistent across routes (ex: page param)
-- Create unit tests for all endpoints
+- Write instructions for contributing to project

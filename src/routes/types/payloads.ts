@@ -57,7 +57,7 @@ export type PayloadPlaysUsername = {
       subtypes: Array<string>;
     };
   }>;
-};
+} | null;
 
 export type PayloadCollection = {
   attributes: {
@@ -70,9 +70,9 @@ export type PayloadCollection = {
     collId: string;
     type: string;
     name: string;
-    yearPublished: string;
-    image: string;
-    thumbnail: string;
+    yearPublished?: string;
+    image?: string;
+    thumbnail?: string;
     status: {
       own: boolean;
       prevOwned: boolean;
@@ -86,7 +86,7 @@ export type PayloadCollection = {
     };
     numPlays: number;
   }>;
-};
+} | null;
 
 export type PayloadFamily = {
   attributes: {
@@ -130,7 +130,7 @@ export type PayloadForum = {
     postDate: string;
     lastPostDate: string;
   }>;
-};
+} | null;
 
 export type PayloadForumList = {
   attributes: {
@@ -162,7 +162,7 @@ export type PayloadGuildSuccess = {
     name: string;
     created: string;
     category: string;
-    website: string;
+    website?: string;
     manager: string;
     description: string;
     location: {
@@ -191,6 +191,8 @@ export type PayloadGuildError = {
   guild: null;
 };
 
+export type PayloadGuild = PayloadGuildSuccess | PayloadGuildError;
+
 export type PayloadHot = {
   attributes: {
     termsofuse: string;
@@ -212,7 +214,7 @@ export type PayloadSearch = {
     id: string;
     type: string;
     name: string;
-    yearPublished: string;
+    yearPublished?: string;
   }>;
 };
 
@@ -256,6 +258,18 @@ export type PayloadThingPolls = Array<
   | PayloadThingPollSuggestedPlayerAge
 >;
 
+type PayloadThingLinks = {
+  type: string;
+  id: string;
+  value: string;
+};
+
+type PayloadThingNames = {
+  type: string;
+  sortindex: string;
+  value: string;
+};
+
 export type PayloadThing = {
   attributes: {
     termsofuse: string;
@@ -263,13 +277,9 @@ export type PayloadThing = {
   items: Array<{
     id: string;
     type: string;
-    thumbnail: string;
-    image: string;
-    names: Array<{
-      type: string;
-      sortindex: string;
-      value: string;
-    }>;
+    thumbnail?: string;
+    image?: string;
+    names: Array<PayloadThingNames>;
     description: string;
     yearPublished: string;
     minPlayers: string;
@@ -278,12 +288,84 @@ export type PayloadThing = {
     minPlayTime: string;
     maxPlayTime: string;
     minAge: string;
-    links: Array<{
+    links: Array<PayloadThingLinks>;
+    polls: PayloadThingPolls;
+    comments?: {
+      page: string;
+      total: string;
+      comment: Array<{
+        username: string;
+        rating: string;
+        value: string;
+      }>;
+    };
+    marketplace?: {
+      listings: Array<{
+        listDate: string;
+        price: {
+          value: string;
+          currency: string;
+        };
+        condition: string;
+        notes: string;
+        link: {
+          href: string;
+          title: string;
+        };
+      }>;
+    };
+    statistics?: {
+      page: string;
+      ratings: {
+        usersRated: string;
+        average: string;
+        bayesAverage: string;
+        ranks: Array<{
+          type: string;
+          id: string;
+          name: string;
+          friendlyName: string;
+          value: string;
+          bayesAverage: string;
+        }>;
+      };
+      stdDev: string;
+      median: string;
+      owned: string;
+      trading: string;
+      wanting: string;
+      wishing: string;
+      numComments: string;
+      numWeights: string;
+      averageWeight: string;
+    };
+    versions?: Array<{
       type: string;
       id: string;
-      value: string;
+      thumbnail?: string;
+      image?: string;
+      links: Array<PayloadThingLinks>;
+      names: Array<PayloadThingNames>;
+      yearPublished: string;
+      productCode: string;
+      width: string;
+      length: string;
+      depth: string;
+      weight: string;
     }>;
-    polls: PayloadThingPolls;
+    videos?: {
+      total: string;
+      videos: Array<{
+        id: string;
+        title: string;
+        category: string;
+        language: string;
+        link: string;
+        username: string;
+        userid: string;
+        postdate: string;
+      }>;
+    };
   }>;
 };
 
@@ -304,11 +386,11 @@ export type PayloadThread = {
     numEdits: string;
     body: string;
   }>;
-};
+} | null;
 
 export type PayloadUser = {
   termsOfUse: string;
-  user: null | {
+  user: {
     id: string;
     name: string;
     termsOfUse: string;
@@ -361,4 +443,4 @@ export type PayloadUser = {
       }>;
     };
   };
-};
+} | null;

@@ -2,10 +2,7 @@ import { axios } from "~/lib/axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsGuild } from "~/routes/types/params";
-import {
-  PayloadGuildSuccess,
-  PayloadGuildError,
-} from "~/routes/types/payloads";
+import { PayloadGuild } from "~/routes/types/payloads";
 
 type ApiResponseError = {
   _attributes: {
@@ -32,9 +29,9 @@ type ApiResponseSuccess = {
     addr1: { _text?: string };
     addr2: { _text?: string };
     city: { _text?: string };
-    stateorprovince?: { _text: string };
-    postalcode?: { _text: string };
-    country?: { _text: string };
+    stateorprovince: { _text?: string };
+    postalcode: { _text?: string };
+    country: { _text?: string };
   };
   members?: {
     _attributes: { count: string; page: string };
@@ -48,9 +45,7 @@ type ApiResponse = {
   guild: ApiResponseSuccess | ApiResponseError;
 };
 
-const transformData = (
-  data: ApiResponse,
-): PayloadGuildSuccess | PayloadGuildError => {
+const transformData = (data: ApiResponse): PayloadGuild => {
   if ("error" in data.guild) {
     return {
       attributes: {
@@ -79,9 +74,9 @@ const transformData = (
         addr1: data.guild.location.addr1._text,
         addr2: data.guild.location.addr2._text,
         city: data.guild.location.city._text,
-        stateorprovince: data.guild.location.stateorprovince?._text,
-        postalcode: data.guild.location.postalcode?._text,
-        country: data.guild.location.country?._text,
+        stateorprovince: data.guild.location.stateorprovince._text,
+        postalcode: data.guild.location.postalcode._text,
+        country: data.guild.location.country._text,
       },
       members: data.guild.members && {
         count: data.guild.members._attributes.count,
@@ -95,9 +90,7 @@ const transformData = (
   };
 };
 
-export const guild = async (
-  params: ParamsGuild,
-): Promise<PayloadGuildSuccess | PayloadGuildError> => {
+export const guild = async (params: ParamsGuild): Promise<PayloadGuild> => {
   const { data } = await axios.get<ApiResponse>("/guild", {
     params,
   });
