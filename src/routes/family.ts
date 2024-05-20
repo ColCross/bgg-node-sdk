@@ -4,12 +4,12 @@ import { enforceArray } from "~/lib/helpers";
 import { ParamsFamily } from "~/routes/types/params";
 import { PayloadFamily } from "~/routes/types/payloads";
 
-type ParamsTransformed = Omit<ParamsFamily, "id" | "type"> & {
+export type ParamsTransformed = Omit<ParamsFamily, "id" | "type"> & {
   id: string;
   type?: string;
 };
 
-const transformParams = (params: ParamsFamily): ParamsTransformed => {
+export const transformParams = (params: ParamsFamily): ParamsTransformed => {
   return {
     ...params,
     id: params.id.join(","),

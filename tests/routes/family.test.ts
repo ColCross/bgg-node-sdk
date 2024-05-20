@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import { axios } from "~/lib/axios";
 
-import { family } from "~/routes/family";
+import { ParamsTransformed, family, transformParams } from "~/routes/family";
 import { ParamsFamily } from "~/routes/types/params";
 import { PayloadFamily } from "~/routes/types/payloads";
 
@@ -100,7 +100,9 @@ describe("family", () => {
     };
     const params: ParamsFamily = { id: ["7381"] };
 
-    mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
+    mock
+      .onGet(endpoint, { params: transformParams(params) })
+      .replyOnce(200, mockApiResponse);
 
     const result = await family(params);
 
@@ -227,10 +229,28 @@ describe("family", () => {
     };
     const params: ParamsFamily = { id: ["7381", "58141"] };
 
-    mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
+    mock
+      .onGet(endpoint, { params: transformParams(params) })
+      .replyOnce(200, mockApiResponse);
 
     const result = await family(params);
 
     expect(result).toEqual(mockPayload);
+  });
+
+  it("should transform raw params", async () => {
+    const rawParams: ParamsFamily = {
+      id: ["7381", "58141"],
+      type: ["rpg", "boardgamefamily"],
+    };
+
+    const transformedParams = transformParams(rawParams);
+
+    const expectedParams: ParamsTransformed = {
+      id: "7381,58141",
+      type: "rpg,boardgamefamily",
+    };
+
+    expect(transformedParams).toEqual(expectedParams);
   });
 });

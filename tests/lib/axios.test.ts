@@ -4,7 +4,7 @@ import { axios } from "~/lib/axios";
 
 const mock = new MockAdapter(axios);
 
-describe("Axios response interceptor", () => {
+describe("Axios", () => {
   it("should reject the promise with an unexpected error message", async () => {
     const error = new Error("Some unexpected error");
     error.stack = "Error stack trace";

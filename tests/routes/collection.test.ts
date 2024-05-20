@@ -1,7 +1,11 @@
 import MockAdapter from "axios-mock-adapter";
 import { axios } from "~/lib/axios";
 
-import { collection } from "~/routes/collection";
+import {
+  ParamsTransformed,
+  collection,
+  transformParams,
+} from "~/routes/collection";
 import { ParamsCollection } from "~/routes/types/params";
 import { PayloadCollection } from "~/routes/types/payloads";
 
@@ -175,6 +179,7 @@ describe("collection", () => {
         },
       ],
     };
+
     const params: ParamsCollection = { username: "user" };
 
     mock.onGet(endpoint, params).replyOnce(200, mockApiResponse);
@@ -203,5 +208,21 @@ describe("collection", () => {
     const result = await collection(params);
 
     expect(result).toEqual(mockPayload);
+  });
+
+  it("should transform raw params", async () => {
+    const rawParams: ParamsCollection = {
+      username: "user",
+      id: ["123", "abc"],
+    };
+
+    const transformedParams = transformParams(rawParams);
+
+    const expectedParams: ParamsTransformed = {
+      username: "user",
+      id: "123,abc",
+    };
+
+    expect(transformedParams).toEqual(expectedParams);
   });
 });
