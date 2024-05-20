@@ -3,8 +3,6 @@
 [![NPM Version](https://img.shields.io/npm/v/bgg-sdk?&logo=npm)](https://www.npmjs.com/package/bgg-sdk)
 [![NPM Version](https://img.shields.io/badge/coverage-100%25-green)](https://github.com/ColCross/bgg-sdk/tree/main/tests)
 
-**WORK IN PROGRESS: NOT YET READY FOR USE**
-
 A modern SDK for interacting with the BoardGameGeek (BGG) XMLAPI2, written in TypeScript and inspired by [BGG](https://www.npmjs.com/package/bgg).
 
 ## Core Features
